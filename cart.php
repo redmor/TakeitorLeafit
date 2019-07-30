@@ -80,6 +80,7 @@
   </div>
   </div>
   <?php else: ?>
-  <?php echo("<script>location.href = 'login.php';</script>"); ?>
+  <?php header('location: login.php'); // CHANGE LOCATION AFTER SUCCESS ?>
+  <?php //echo("<script>location.href = 'login.php';</script>"); ?>
   <?php endif; ?>
 <?php include 'inc/footer.php';?>

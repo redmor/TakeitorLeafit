@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 $email = "";
 include_once "config/connect.php";
 
@@ -95,7 +97,6 @@ if (isset($_POST['login_user'])) {
 	}
 
 	$_SESSION['email'] = $email;
-	header('Location: index.php');
 }
 
 
@@ -313,9 +314,9 @@ if(isset($_POST['placeOrder'])){
 
 function shareBtn($id){
 echo '<span class="shareBtn">
-<a href="https://www.facebook.com/sharer.php?u=http://takeitorleafit.store/item.php?id='.$id.'">
+<a href="https://www.facebook.com/sharer.php?u=http://takeitorleafit.store/item.php?id='.$id.'" target="_blank">
 <i class="fab fa-facebook-square"></i></a>
-<a href="https://twitter.com/intent/tweet/?url=http://takeitorleafit.store/item.php?id='.$id.'">
+<a href="https://twitter.com/intent/tweet/?url=http://takeitorleafit.store/item.php?id='.$id.'" target="_blank">
 <i class="fab fa-twitter-square"></i></a>
 </span>';
 } 

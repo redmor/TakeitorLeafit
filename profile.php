@@ -123,6 +123,7 @@ if (isset($_SESSION['email'])){
   </div>
 </div>
 <?php else: ?>
-<?php echo("<script>location.href = 'login.php';</script>"); ?>
+<?php //echo("<script>location.href = 'login.php';</script>"); ?>
+<?php header('location: login.php'); // CHANGE LOCATION AFTER SUCCESS ?>
 <?php endif; ?>
 <?php include('inc/footer.php'); ?>

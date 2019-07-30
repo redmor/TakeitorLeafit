@@ -3,7 +3,8 @@ include('inc/header.php');
 ?>
 
 <?php if (isset($_SESSION['email'])): ?>
-<?php echo("<script>location.href = 'index.php';</script>"); ?>
+<?php //echo("<script>location.href = 'index.php';</script>"); ?>
+<?php header('location: profile.php'); // CHANGE LOCATION AFTER SUCCESS ?>
 <?php else: ?>
 <div class="container">
   <div class="login_main">
