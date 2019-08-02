@@ -103,17 +103,27 @@ if (isset($_SESSION['email'])){
         <thead>
           <tr>
             <th scope="col">Date</th>
+            <th scope="col">Address</th>
             <th scope="col">Order #</th>
             <th scope="col">Price</th>
+            <th scope="col">Delivery date</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
         <?php while($order_history = mysqli_fetch_assoc($run_order_history)) : ?>
+        <?php 
+          $h_street = $order_history['street'];
+          $h_city = $order_history['city'];
+          $h_state = $order_history['state'];
+          $h_zip = $order_history['zip'];
+        ?>
           <tr>
             <td><?php echo $order_history['trans_date']; ?></td>
-            <td><?php echo $order_history['order_num']; ?></td>
+            <td><?php echo "$h_street $h_city $h_state $h_zip"; ?></td>
+            <td><?php echo $order_history['street']; ?></td>
             <td><?php echo $order_history['total']; ?></td>
+            <td><?php echo $order_history['del_date']; ?></td>
             <td><?php echo $order_history['order_status']; ?></td>
           </tr>
           <?php endwhile; ?>

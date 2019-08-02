@@ -300,13 +300,36 @@ if(isset($_POST['cOut-btn'])){
 
 /************************************************** PLACE ORDERS **************************************************/
 if(isset($_POST['placeOrder'])){
+
   $total = $_POST['itemtotal'];
   $itemNum = $_POST['itemNum'];  
   $itemName = $_POST['itemName'];  
+  $user_acct_num = $_POST['user_acct_num']; 
 
-  $query = "INSERT INTO order_history(total)
-                VALUES('$total')";
-          mysqli_query($db, $query);
+  //var_dump($user_acct_num);
+
+  $qOne = "INSERT INTO order_history (acct_num, del_addy, del_date, location)
+           VALUES (global $user_acct_num, 'lancaster street', '2018-08-08', '1000-Col')";
+
+  $qTwo = "INSERT INTO order_items (item_price, order_num, item_id, qty) 
+           SELECT i.sell_cost, MAX(o.order_num), '4' as item_id, '1' as qty 
+           FROM items i CROSS JOIN order_history o 
+           WHERE item_id = 3";
+
+  $qthree = "UPDATE order_history h SET total=(SELECT SUM(item_price*qty) FROM order_items WHERE order_num=h.order_num) 
+             ORDER BY order_num desc limit 1";
+  
+  mysqli_query($db,"START TRANSACTION");
+  $insert1 = mysqli_query($db, $qOne);
+  $insert2 = mysqli_query($db, $qTwo);
+  $insert3 = mysqli_query($db, $qthree);
+  mysqli_query($db,"COMMIT");
+
+
+
+  setcookie('shopping_cart', '', time() - (86400 * 30));
+
+  //header("location: profile.php");
 }
 
 
