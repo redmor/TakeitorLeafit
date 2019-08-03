@@ -293,28 +293,36 @@ if($_GET["cat"] == "gifts"){
 
 if(isset($_POST['cOut-btn'])){
   //GET DATA
-  $total = $_POST['total'];
-  $itemNum = $_POST['itemNum'];  
-  $itemName = $_POST['itemName'];  
+  $grand_total = $_POST['grand_total'];
+  $item_Qty = $_POST['item_Qty'];  
+  $item_Names = $_POST['item_Names'];
+  $item_id = $_POST['item_id'];  
 }
 
 /************************************************** PLACE ORDERS **************************************************/
 if(isset($_POST['placeOrder'])){
 
-  $total = $_POST['itemtotal'];
-  $itemNum = $_POST['itemNum'];  
-  $itemName = $_POST['itemName'];  
+  $item_id = $_POST['item_id'];
+  $grand_total = $_POST['grand_total'];
+  $item_Qty = $_POST['item_Qty'];  
+  $item_Names = $_POST['item_Names'];  
   $user_acct_num = $_POST['user_acct_num']; 
+  $street = $_POST['street'];
+  $city = $_POST['city'];
+  $state = $_POST['state'];
+  $zip = $_POST['zip'];
+  $del_address = "$street. $city, $state $zip";
+  $del_date = $_POST['del-date'];
 
-  //var_dump($user_acct_num);
+  //var_dump($total);
 
-  $qOne = "INSERT INTO order_history (acct_num, del_addy, del_date, location)
-           VALUES (global $user_acct_num, 'lancaster street', '2018-08-08', '1000-Col')";
+  $qOne = "INSERT INTO order_history (acct_num, del_addy, del_date, `location`)
+           VALUES ($user_acct_num, '$del_address', '$del_date', '1000-Col')";
 
   $qTwo = "INSERT INTO order_items (item_price, order_num, item_id, qty) 
-           SELECT i.sell_cost, MAX(o.order_num), '4' as item_id, '1' as qty 
+           SELECT i.sell_cost, MAX(o.order_num), $item_id as item_id, $item_Qty as qty 
            FROM items i CROSS JOIN order_history o 
-           WHERE item_id = 3";
+           WHERE item_id = $item_id";
 
   $qthree = "UPDATE order_history h SET total=(SELECT SUM(item_price*qty) FROM order_items WHERE order_num=h.order_num) 
              ORDER BY order_num desc limit 1";
@@ -329,7 +337,7 @@ if(isset($_POST['placeOrder'])){
 
   setcookie('shopping_cart', '', time() - (86400 * 30));
 
-  //header("location: profile.php");
+  header("location: profile.php");
 }
 
 

@@ -28,8 +28,11 @@
         <?php
           if(isset($_COOKIE["shopping_cart"]))
           {
-            $total = 0;
-            $itemNum = 0;
+            $item_id = 0;
+            $item_price = 0;
+            $item_qty = 0;
+            $grand_total = 0;
+            $item_Qty = 0;
             $itemName = null;
             $cookie_data = stripslashes($_COOKIE['shopping_cart']);
             $cart_data = json_decode($cookie_data, true);
@@ -45,22 +48,25 @@
                 class="text-danger">Remove</span></a></td>
         </tr>
         <?php
-          $total = $total + ($values["item_quantity"] * $values["item_price"]);
-          $itemNum += $values["item_quantity"];
-          $itemName = $itemName .= '[+] '. $values["item_name"] .'<br>';
-          $GLOBALS['itemName'];
+          $grand_total = $grand_total + ($values["item_quantity"] * $values["item_price"]);
+          $item_Qty += $values["item_quantity"];
+          $item_Names = $itemName .= '[+] '. $values["item_name"] .'<br>';
+          $item_id = $values["item_id"];
     }
    ?>
         <tr>
           <td colspan="3" align="right">Total</td>
-          <td align="right">$ <?php echo number_format($total, 2); ?></td>
+          <td align="right">$ <?php echo number_format($grand_total, 2); ?></td>
           <td></td>
         </tr>
         <tr>
         <form action="checkout.php" method="POST">
-          <input type="hidden" name="total" value="$<?php echo number_format($total, 2); ?>">
-          <input type="hidden" name="itemNum" value="<?php echo $itemNum; ?>">
-          <input type="hidden" name="itemName" value="<?php echo $itemName; ?>">
+          <input type="hidden" name="grand_total" value="<?php echo number_format($grand_total, 2); ?>">
+          <input type="hidden" name="item_Qty" value="<?php echo $item_Qty; ?>">
+          <input type="hidden" name="item_Names" value="<?php echo $item_Names; ?>">
+          <input type="hidden" name="item_price" value="<?php echo $item_price; ?>">
+          <input type="hidden" name="item_qty" value="<?php echo $item_qty; ?>">
+          <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
           <td colspan="5" align="center"><button type="submit" class="btn btn-lg btn-outline-info mb-3" name="cOut-btn">Check Out <i class="fas fa-credit-card"></i></button></td>
         </form>
         </tr>

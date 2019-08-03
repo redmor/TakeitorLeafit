@@ -10,6 +10,7 @@ if (isset($_SESSION['email'])){
 
     $date = strtotime("+1 day");
     $del_date = date('Y-m-d', $date);
+  
 }
 ?>
 
@@ -34,20 +35,21 @@ if (isset($_SESSION['email'])){
         <table class="table table-bordered">
           <tr>
             <td>Products</td>
-            <td><?php echo $itemName; ?></td>
+            <td><?php echo $item_Names; ?></td>
           </tr>
           <tr>
             <td># items</td>
-            <td><?php echo $itemNum; ?></td>
+            <td><?php echo $item_Qty; ?></td>
           </tr>
           <tr>
             <td>Total price</td>
-            <td><?php echo $total; ?></td>
+            <td>$<?php echo $grand_total; ?></td>
           </tr>
         </table>
-        <input type="hidden" name="itemName" value="><?php echo $itemName; ?>">
-        <input type="hidden" name="itemNum" value="><?php echo $itemNum; ?>">
-        <input type="hidden" name="itemtotal" value="><?php echo $total; ?>">
+        <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+        <input type="hidden" name="item_Names" value="<?php echo $item_Names; ?>">
+        <input type="hidden" name="grand_total" value="<?php echo $grand_total; ?>">
+        <input type="hidden" name="item_Qty" value="<?php echo $item_Qty; ?>">
         </div>
 
     <!-- //////////////////////////////////////////////// Customer info ////////////////////////////////////////////////-->
@@ -59,7 +61,7 @@ if (isset($_SESSION['email'])){
                 <label for="fname">First name</label>
                 <input type="text" class="form-control" value="<?php echo $user['first_name']; ?>" name="f_name"
                   id="fname" placeholder="First name">
-                  <input type="hidden" name="user_acct_num" value="><?php echo $user['acct_num']; ?>">
+                  <input type="hidden" name="user_acct_num" value="<?php echo $user['acct_num']; ?>">
               </div>
               <div class="form-group col-md-6">
                 <label>Last name</label>
@@ -111,7 +113,7 @@ if (isset($_SESSION['email'])){
         <div class="form-group">
           <label for="del-date" class="col-form-label">Choose Your Delivery Date</label>
           <div class="col-10">
-            <input class="form-control" type="date" value="<?php echo $del_date; ?>" min="<?php echo $del_date; ?>" id="del-date">
+            <input class="form-control" name="del-date" type="date" value="<?php echo $del_date; ?>" min="<?php echo $del_date; ?>" id="del-date">
           </div>
         </div>
         </div>

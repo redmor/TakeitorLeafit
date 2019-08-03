@@ -8,7 +8,7 @@ if (isset($_SESSION['email'])){
     $run_user = $db->query($get_user);
 
     
-    $get_order_history = "SELECT * FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num WHERE email = '{$user_email}'";
+    $get_order_history = "SELECT * FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num WHERE email = '{$user_email}' ORDER BY trans_date DESC LIMIT 5";
     $run_order_history = $db->query($get_order_history);
 
 }
@@ -97,7 +97,7 @@ if (isset($_SESSION['email'])){
   </div> <!-- Row End-->
   </div>
   <div class="row my-5">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <h3>Order History <i class="fas fa-history"></i></h3>
       <table class="table table-striped">
         <thead>
@@ -112,16 +112,10 @@ if (isset($_SESSION['email'])){
         </thead>
         <tbody>
         <?php while($order_history = mysqli_fetch_assoc($run_order_history)) : ?>
-        <?php 
-          $h_street = $order_history['street'];
-          $h_city = $order_history['city'];
-          $h_state = $order_history['state'];
-          $h_zip = $order_history['zip'];
-        ?>
           <tr>
             <td><?php echo $order_history['trans_date']; ?></td>
-            <td><?php echo "$h_street $h_city $h_state $h_zip"; ?></td>
-            <td><?php echo $order_history['street']; ?></td>
+            <td><?php echo $order_history['del_addy'];?></td>
+            <td><?php echo $order_history['order_num']; ?></td>
             <td><?php echo $order_history['total']; ?></td>
             <td><?php echo $order_history['del_date']; ?></td>
             <td><?php echo $order_history['order_status']; ?></td>
