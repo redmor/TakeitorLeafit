@@ -8,7 +8,8 @@ if (isset($_SESSION['email'])){
     $run_user = $db->query($get_user);
 
     
-    $get_order_history = "SELECT * FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num WHERE email = '{$user_email}' ORDER BY trans_date DESC LIMIT 5";
+    $get_order_history = "SELECT * FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num JOIN order_items AS oi on h.order_num = oi.order_num
+                          WHERE email = '{$user_email}' ORDER BY trans_date DESC LIMIT 5";
     $run_order_history = $db->query($get_order_history);
 
 }
@@ -98,7 +99,7 @@ if (isset($_SESSION['email'])){
   </div>
   <div class="row my-5">
     <div class="col-md-10">
-      <h3>Order History <i class="fas fa-history"></i></h3>
+      <h3>Order History <i class="fas fa-history" id="order_hist"></i></h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -108,6 +109,7 @@ if (isset($_SESSION['email'])){
             <th scope="col">Price</th>
             <th scope="col">Delivery date</th>
             <th scope="col">Status</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -119,6 +121,7 @@ if (isset($_SESSION['email'])){
             <td><?php echo $order_history['total']; ?></td>
             <td><?php echo $order_history['del_date']; ?></td>
             <td><?php echo $order_history['order_status']; ?></td>
+            <td><a href="orderDetails.php?order_id=<?php echo $order_history['id']; ?>" class="btn btn-sm btn-info">View</a></td>
           </tr>
           <?php endwhile; ?>
         </tbody>
