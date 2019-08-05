@@ -120,7 +120,11 @@ if (isset($_SESSION['email'])){
             <td><?php echo $order_history['order_num']; ?></td>
             <td><?php echo $order_history['total']; ?></td>
             <td><?php echo $order_history['del_date']; ?></td>
-            <td><?php echo $order_history['order_status']; ?></td>
+            <?php if($order_history['order_status'] == 'Canceled'):?>
+              <?php echo "<td class='text-danger'>". $order_history['order_status'] ."</td>"?>
+            <?php else:?>
+              <?php echo "<td>". $order_history['order_status'] ."</td>"?>
+            <?php endif;?>
             <td><a href="orderDetails.php?order_id=<?php echo $order_history['id']; ?>" class="btn btn-sm btn-info">View</a></td>
           </tr>
           <?php endwhile; ?>
