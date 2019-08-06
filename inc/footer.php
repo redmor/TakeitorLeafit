@@ -37,10 +37,10 @@
                 <h4>Find Us</h4>
                 <p>
                     <strong>Take it or Leaf it inc.</strong>
-                    <br />43558
-                    <br />Portland St
-                    <br />0818-0683-3157
-                    <br />custserv@takeitorleafit.store
+                    <br>656 East Town St.
+                    <br>Columbus, OH 43215
+                    <br>602-0683-3157
+                    <br><a href="mailto:custserv@takeitorleafit.store">custserv@takeitorleafit.store</a>
                 </p>
 
                 <hr class="hidden-md hidden-lg">

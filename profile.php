@@ -98,16 +98,17 @@ if (isset($_SESSION['email'])){
   </div> <!-- Row End-->
   </div>
   <div class="row my-5">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <h3>Order History <i class="fas fa-history" id="order_hist"></i></h3>
+      <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Address</th>
-            <th scope="col">Order #</th>
+            <th scope="col" width="20%">Date</th>
+            <th scope="col" width="40%">Address</th>
+            <th scope="col" width="20%">Order #</th>
             <th scope="col">Price</th>
-            <th scope="col">Delivery date</th>
+            <th scope="col" width="40%">Delivery date</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
           </tr>
@@ -118,10 +119,14 @@ if (isset($_SESSION['email'])){
             <td><?php echo $order_history['trans_date']; ?></td>
             <td><?php echo $order_history['del_addy'];?></td>
             <td><?php echo $order_history['order_num']; ?></td>
-            <td><?php echo $order_history['total']; ?></td>
+            <td>$<?php echo $order_history['total']; ?></td>
             <td><?php echo $order_history['del_date']; ?></td>
             <?php if($order_history['order_status'] == 'Canceled'):?>
-              <?php echo "<td class='text-danger'>". $order_history['order_status'] ."</td>"?>
+            <?php echo "<td class='text-danger'>". $order_history['order_status'] ."</td>"?>
+            <?php elseif($order_history['order_status'] == 'Delivered'):?>
+            <?php echo "<td class='text-success'>". $order_history['order_status'] ."</td>"?>
+            <?php elseif($order_history['order_status'] == 'Out For Delivery'):?>
+            <?php echo "<td class='text-info'>". $order_history['order_status'] ."</td>"?>
             <?php else:?>
               <?php echo "<td>". $order_history['order_status'] ."</td>"?>
             <?php endif;?>
@@ -130,6 +135,7 @@ if (isset($_SESSION['email'])){
           <?php endwhile; ?>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 </div>

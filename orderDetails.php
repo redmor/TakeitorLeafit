@@ -5,8 +5,7 @@ include 'inc/header.php';
 
 if (isset($_SESSION['email'])){
 
-    $get_update_order = "SELECT order_status, oi.order_num, i.item_id, oi.qty, i.item_name, total, del_addy, del_date, trans_date 
-                         FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num 
+    $get_update_order = "SELECT * FROM customer AS c JOIN order_history AS h ON c.acct_num = h.acct_num 
                                                      JOIN order_items AS oi on h.order_num = oi.order_num 
                                                      JOIN items AS i ON oi.item_id = i.item_id 
                          WHERE id={$order_id}";
@@ -32,9 +31,12 @@ if(isset($_POST['cancelOrdr'])){
     <div class="row my-5">
         <div class="col-md-10 mx-auto">
             <?php while($order_update = mysqli_fetch_assoc($run_update_order)) : ?>
-            <?php if($order_update['order_status'] == 'Canceled') : ?>
+
+            <?php $ordr_status = $order_update['order_status']; ?>
+
+            <?php if($ordr_status == 'Canceled' || $ordr_status == 'Delivered' || $ordr_status == 'Out For Delivery') : ?>
                 <div class="col-md-12 border py-3">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="order_details">
                     <thead>
                         <div class="col-md-12 d-flex justify-content-between">
                             <h3>Order (#<?php echo $order_update['order_num']; ?>)</h3>
@@ -55,7 +57,7 @@ if(isset($_POST['cancelOrdr'])){
                             <td>$<?php echo $order_update['total']; ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Delivery Address</th>
+                            <th scope="row">Shipping Address</th>
                             <td><?php echo $order_update['del_addy'];?></td>
                         </tr>
                         <tr>
@@ -66,6 +68,10 @@ if(isset($_POST['cancelOrdr'])){
                             <th scope="row">Order Status</th>
                             <?php if($order_update['order_status'] == 'Canceled'):?>
                             <?php echo "<td class='text-danger'>". $order_update['order_status'] ."</td>"?>
+                            <?php elseif($order_update['order_status'] == 'Delivered'):?>
+                            <?php echo "<td class='text-success'>". $order_update['order_status'] ."</td>"?>
+                            <?php elseif($order_update['order_status'] == 'Out For Delivery'):?>
+                            <?php echo "<td class='text-info'>". $order_update['order_status'] ."</td>"?>
                             <?php else:?>
                             <?php echo "<td>". $order_update['order_status'] ."</td>"?>
                             <?php endif;?>
@@ -114,8 +120,7 @@ if(isset($_POST['cancelOrdr'])){
                         <tr>
                             <th scope="row">Actions</th>
                             <td>
-                                <form action="orderDetails.php?order_id=<?php echo $order_update['id']; ?>"
-                                    method="POST">
+                                <form action="orderDetails.php?order_id=<?php echo $order_update['id']; ?>" method="POST">
                                     <input type="submit" class="btn btn-sm btn-danger btn-cancel" name="cancelOrdr" value="Cancel">
                                 </form>
                             </td>

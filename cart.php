@@ -11,7 +11,7 @@
     <h2 class="text-center m-5 section-title" id="flowers-section">Your Shopping Cart</h2>
     <div style="clear:both"></div>
     <br />
-    <h3>Order Details</h3>
+
     <div class="table-responsive">
       <div align="right">
       </div>

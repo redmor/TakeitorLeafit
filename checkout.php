@@ -10,6 +10,7 @@ if (isset($_SESSION['email'])){
 
     $date = strtotime("+1 day");
     $del_date = date('Y-m-d', $date);
+    $max_date = date('Y-m-d', strtotime("+30 days"));
   
 }
 ?>
@@ -113,26 +114,38 @@ if (isset($_SESSION['email'])){
         <div class="form-group">
           <label for="del-date" class="col-form-label">Choose Your Delivery Date</label>
           <div class="col-10">
-            <input class="form-control" name="del-date" type="date" value="<?php echo $del_date; ?>" min="<?php echo $del_date; ?>" id="del-date">
+            <input class="form-control" name="del-date" type="date" value="<?php echo $del_date; ?>" 
+                    min="<?php echo $del_date; ?>" max="<?php echo $max_date; ?>" id="del-date">
           </div>
         </div>
         </div>
-    <!-- //////////////////////////////////////////////// Shipping Address ////////////////////////////////////////////////-->
+    <!-- //////////////////////////////////////////////// Payment Method ////////////////////////////////////////////////-->
 
     <h3><span class="num-badge">4</span> Payment Method</h3>
+    <p class="mb-2">Choose You Payment Method</p>
+  <div class="form-row mb-3">
+    <div class="form-check form-check-inline h1">
+      <input class="form-check-input" type="radio" name="cc" id="Radio1" value="visa" checked>
+      <label class="form-check-label" for="Radio1"><i class="fab fa-cc-visa"></i></label>
+    </div>
+    <div class="form-check form-check-inline h1">
+      <input class="form-check-input" type="radio" name="cc" id="Radio2" value="mastercard">
+      <label class="form-check-label" for="Radio2"><i class="fab fa-cc-mastercard"></i></label>
+    </div>
+  </div>
   <div class="form-row">
     <div class="form-group col-md-8">
       <label for="owner">Card Holder</label>
-      <input type="text" class="form-control" id="owner">
+      <input type="text" name="cardHolder" class="form-control" id="owner">
     </div>
     <div class="form-group col-md-4">
       <label for="cvv">CVV</label>
-      <input type="text" class="form-control" id="cvv">
+      <input type="text" name="cvv" class="form-control" id="cvv" pattern="\d*" maxlength="3">
     </div>
   </div>
   <div class="form-group" id="card-number-field">
     <label for="cardNumber">Card Number</label>
-    <input type="text" class="form-control" id="cardNumber">
+    <input type="text" name="cardNum" class="form-control" id="cardNumber" pattern="\d*" maxlength="16">
   </div>
   <div class="form-row ">
     <div class="form-group col-md-6 d-flex">
@@ -158,12 +171,6 @@ if (isset($_SESSION['email'])){
         <option value="23"> 2023</option>
         <option value="24"> 2024</option>
       </select>
-    </div>
-    <div class="form-group col-md-6">
-    <div class="h1">
-      <i class="fab fa-cc-visa"></i>
-      <i class="fab fa-cc-mastercard"></i>
-    </div>
     </div>
   </div>
       </div> <!-- Order Summary End-->

@@ -1,13 +1,15 @@
 <?php
 
 // SELECT ITEMS FROM DATABASE
-$get_items = "SELECT * FROM items WHERE featured = 1 LIMIT 10";
+$get_items = "SELECT * FROM items WHERE featured = 1 ORDER BY RAND() LIMIT 10";
 $run_items = $db->query($get_items);
 
 ?>
 
       <!-- Main Content START-->
       <div class="container more_items">
+        <hr>
+        <h4 class="text-center text-muted">You May Also Like</h4>
         <hr>
         <div class="row d-flex justify-content-center">
           <?php while($items = mysqli_fetch_assoc($run_items)) : ?>

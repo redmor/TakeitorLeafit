@@ -307,12 +307,46 @@ if(isset($_POST['placeOrder'])){
   $item_Qty = $_POST['item_Qty'];  
   $item_Names = $_POST['item_Names'];  
   $user_acct_num = $_POST['user_acct_num']; 
+
+  $f_name = $_POST['f_name'];
+  $l_name = $_POST['l_name'];
   $street = $_POST['street'];
   $city = $_POST['city'];
   $state = $_POST['state'];
   $zip = $_POST['zip'];
   $del_address = "$street. $city, $state $zip";
+
   $del_date = $_POST['del-date'];
+
+  $cardHolder = $_POST['cardHolder'];
+  $cvv = $_POST['cvv'];
+  $cardNum = $_POST['cardNum'];
+  $cc = $_POST['cc'];
+
+  //VALIDATION
+
+
+  if (empty($f_name)) {
+    array_push($errors, "Please Enter Your Name");
+  }elseif(empty($l_name)){
+    array_push($errors, "Please Enter Your Last Name");
+  }elseif(empty($street)){
+    array_push($errors, "Please Enter a Valid Street");
+  }elseif(empty($zip)){
+    array_push($errors, "Please Enter a Valid Zip Code");
+  }
+
+  if($cc == 'visa'){
+    $pattern = "/^([4]{1})([0-9]{12,16})$/"; 
+    if (!preg_match($pattern,$cardNum)) {
+      array_push($errors, "Invalid VISA Card Number");
+    }
+  }elseif($cc == 'mastercard') {
+    $pattern = "/^([51|52|53|54|55]{2})([0-9]{14,16})$/";
+    if (!preg_match($pattern,$cardNum)) {
+      array_push($errors, "Invalid MASTERCARD Card Number");
+  }
+}
 
   //var_dump($total);
 
@@ -337,10 +371,9 @@ if(isset($_POST['placeOrder'])){
 
   setcookie('shopping_cart', '', time() - (86400 * 30));
 
-  header("location: profile.php");
+  //header("location: profile.php");
 }
 
-/************************************************** CANCEL ORDERS **************************************************/
 
 /************************************************** SOCIAL MEDIA SHARE LINKS **************************************************/
 
