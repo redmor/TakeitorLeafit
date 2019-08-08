@@ -25,20 +25,19 @@
           <th width="5%">Action</th>
         </tr>
         </thead>
+        <?php if(isset($_COOKIE["shopping_cart"])): ?>
         <?php
-          if(isset($_COOKIE["shopping_cart"]))
-          {
-            $item_id = 0;
-            $item_price = 0;
-            $item_qty = 0;
-            $grand_total = 0;
-            $item_Qty = 0;
-            $itemName = null;
-            $cookie_data = stripslashes($_COOKIE['shopping_cart']);
-            $cart_data = json_decode($cookie_data, true);
-            foreach($cart_data as $keys => $values)
-          {
-        ?>
+          $item_id = 0;
+          $item_price = 0;
+          $item_qty = 0;
+          $grand_total = 0;
+          $item_Qty = 0;
+          $itemName = null;
+          $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+          $cart_data = json_decode($cookie_data, true);
+         ?>
+        <?php foreach($cart_data as $keys => $values): ?>
+
         <tr>
           <td><?php echo $values["item_name"]; ?></td>
           <td><?php echo $values["item_quantity"]; ?></td>
@@ -50,10 +49,10 @@
         <?php
           $grand_total = $grand_total + ($values["item_quantity"] * $values["item_price"]);
           $item_Qty += $values["item_quantity"];
-          $item_Names = $itemName .= '[+] '. $values["item_name"] .'<br>';
+          $item_Names = $itemName .= $values["item_name"] .'.<br>';
           $item_id = $values["item_id"];
-    }
-   ?>
+        ?>
+        <?php endforeach; ?>
         <tr>
           <td colspan="3" align="right">Total</td>
           <td align="right">$ <?php echo number_format($grand_total, 2); ?></td>
@@ -70,17 +69,16 @@
           <td colspan="5" align="center"><button type="submit" class="btn btn-lg btn-outline-info mb-3" name="cOut-btn">Check Out <i class="fas fa-credit-card"></i></button></td>
         </form>
         </tr>
-        <?php
-   }
-   else
-   {
+        <a href="index.php#flowers-section" class="btn btn-outline-success mb-3" name="back-btn">Continue Shopping <i class="fas fa-chevron-right"></i></a>
+        <?php else: ?>
+   <?php
     echo '
     <tr>
      <td colspan="5" align="center">No Item in Cart</td>
     </tr>
     ';
-   }
    ?>
+   <?php endif;?>
       </table>
     </div><!-- Main Content end-->
   </div>

@@ -50,7 +50,8 @@ if(isset($_POST['cancelOrdr'])){
                         </tr>
                         <tr>
                             <th scope="row">Items</th>
-                            <td><a href="item.php?id=<?php echo $order_update['item_id']; ?>"><?php echo $order_update['item_name']; ?></a></td>
+                            <!--<td><a href="item.php?id=<?php //echo $order_update['item_id']; ?>"><?php //echo $order_update['item_name']; ?></a></td>-->
+                            <td><?php echo $order_update['items_ordered']; ?></td>
                         </tr>
                         <tr>
                             <th scope="row">Total</th>
@@ -95,14 +96,14 @@ if(isset($_POST['cancelOrdr'])){
                         </tr>
                         <tr>
                             <th scope="row">Items</th>
-                            <td><a href="item.php?id=<?php echo $order_update['item_id']; ?>"><?php echo $order_update['item_name']; ?></a></td>
+                            <td><?php echo $order_update['items_ordered']; ?></td>
                         </tr>
                         <tr>
                             <th scope="row">Total</th>
                             <td>$<?php echo $order_update['total']; ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Delivery Address</th>
+                            <th scope="row">Shipping Address</th>
                             <td><?php echo $order_update['del_addy'];?></td>
                         </tr>
                         <tr>

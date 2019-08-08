@@ -1,6 +1,6 @@
 <div class="testimonials"> <!-- TESTIMONIALS SECTION START-->
 <hr>
-  <p class="testi-title">What our customers say about us</p>
+  <p class="testi-title">What Our Customers Say About us</p>
 <hr>
   <div class="testi-section">
     <div class="testi-box">

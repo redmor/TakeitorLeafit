@@ -109,7 +109,7 @@ if (isset($_SESSION['email'])){
 
     <!-- //////////////////////////////////////////////// Other Options ////////////////////////////////////////////////-->
         <div class="my-5">
-          <h3><span class="num-badge">3</span> Other Options</h3>
+          <h3><span class="num-badge">3</span> Delivery Date</h3>
 
         <div class="form-group">
           <label for="del-date" class="col-form-label">Choose Your Delivery Date</label>
@@ -157,7 +157,7 @@ if (isset($_SESSION['email'])){
         <option value="05">May</option>
         <option value="06">June</option>
         <option value="07">July</option>
-        <option value="08">August</option>
+        <option value="08" selected="selected">August</option>
         <option value="09">September</option>
         <option value="10">October</option>
         <option value="11">November</option>

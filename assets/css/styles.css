@@ -228,6 +228,17 @@ hr{
   margin-bottom: 50px;
 }
 
+.success_box{
+  width: 300px;
+  height: 100px;
+  padding: 15px;
+  font-size: 2em;
+}
+
+.icon-success{
+  color: #28a745;
+  font-size: 1.5em;
+}
 
 /************************************************** MEDIA QUERIES **************************************************/
 

@@ -339,39 +339,40 @@ if(isset($_POST['placeOrder'])){
   if($cc == 'visa'){
     $pattern = "/^([4]{1})([0-9]{12,16})$/"; 
     if (!preg_match($pattern,$cardNum)) {
-      array_push($errors, "Invalid VISA Card Number");
+      array_push($errors, "Please Enter a Valid VISA Card Number");
     }
   }elseif($cc == 'mastercard') {
     $pattern = "/^([51|52|53|54|55]{2})([0-9]{14,16})$/";
     if (!preg_match($pattern,$cardNum)) {
-      array_push($errors, "Invalid MASTERCARD Card Number");
+      array_push($errors, "Please Enter a Valid MASTERCARD Number");
   }
 }
 
   //var_dump($total);
 
-  $qOne = "INSERT INTO order_history (acct_num, del_addy, del_date, `location`)
-           VALUES ($user_acct_num, '$del_address', '$del_date', '1000-Col')";
+  if(!$errors){
 
-  $qTwo = "INSERT INTO order_items (item_price, order_num, item_id, qty) 
-           SELECT i.sell_cost, MAX(o.order_num), $item_id as item_id, $item_Qty as qty 
-           FROM items i CROSS JOIN order_history o 
-           WHERE item_id = $item_id";
+    $qOne = "INSERT INTO order_history (acct_num, del_addy, items_ordered, del_date, `location`)
+    VALUES ($user_acct_num, '$del_address', '$item_Names', '$del_date', '1000-Col')";
 
-  $qthree = "UPDATE order_history h SET total=(SELECT SUM(item_price*qty) FROM order_items WHERE order_num=h.order_num) 
-             ORDER BY order_num desc limit 1";
+    $qTwo = "INSERT INTO order_items (item_price, order_num, item_id, qty) 
+        SELECT i.sell_cost, MAX(o.order_num), $item_id as item_id, $item_Qty as qty 
+        FROM items i CROSS JOIN order_history o 
+        WHERE item_id = $item_id";
+
+    $qthree = "UPDATE order_history h SET total=(SELECT SUM(item_price*qty) FROM order_items WHERE order_num=h.order_num) 
+          ORDER BY order_num desc limit 1";
+
+    mysqli_query($db,"START TRANSACTION");
+    $insert1 = mysqli_query($db, $qOne);
+    $insert2 = mysqli_query($db, $qTwo);
+    $insert3 = mysqli_query($db, $qthree);
+    mysqli_query($db,"COMMIT");
+
+    setcookie('shopping_cart', '', time() - (86400 * 30));
+    header("location: order_success.php");
+  }
   
-  mysqli_query($db,"START TRANSACTION");
-  $insert1 = mysqli_query($db, $qOne);
-  $insert2 = mysqli_query($db, $qTwo);
-  $insert3 = mysqli_query($db, $qthree);
-  mysqli_query($db,"COMMIT");
-
-
-
-  setcookie('shopping_cart', '', time() - (86400 * 30));
-
-  //header("location: profile.php");
 }
 
 
