@@ -1,3 +1,11 @@
+<!--
+
+DEVELOPER: OUSSAMA ER RABILI
+PROJECT NAME: TAKE IT OR LEAF IT
+GITHUB: https://github.com/redmor
+EMAIL: errabili.oussama@gmail.com
+
+-->
 <?php
  include 'inc/header.php';
 
